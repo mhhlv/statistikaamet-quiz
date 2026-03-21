@@ -7,5 +7,10 @@
   },
   "author": "Mihhail Mihhailov",
   "license": "MIT",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@tsconfig/strictest": "^2.0.8",
+    "@tsconfig/vite-react": "^7.0.2",
+    "typescript": "^5.9.3"
+  }
 }
