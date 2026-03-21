@@ -9,8 +9,14 @@
   "license": "MIT",
   "description": "",
   "devDependencies": {
+    "@eslint/json": "^0.14.0",
     "@tsconfig/strictest": "^2.0.8",
     "@tsconfig/vite-react": "^7.0.2",
-    "typescript": "^5.9.3"
+    "eslint": "^9.39.4",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.4.0",
+    "jiti": "^2.6.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.1"
   }
 }
