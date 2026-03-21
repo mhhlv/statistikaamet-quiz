@@ -1,0 +1,11 @@
+{
+  "name": "statistikaamet-quiz",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "author": "Mihhail Mihhailov",
+  "license": "MIT",
+  "description": ""
+}
