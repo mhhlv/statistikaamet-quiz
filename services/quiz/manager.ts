@@ -1,13 +1,19 @@
-import type { Answer, Question } from "./questions";
+import type { QuestionAnswerMapping, Answer } from "./questions";
 
 type QuizManager = {
-  chosenAswers: Map<Question, Answer|undefined>;
+  quiz: QuestionAnswerMapping[];
+  chosenAnswers: Answer[];
+  currentQuestion: Iterator<QuestionAnswerMapping>; 
 };
 
-export function createQuizManager(quiz: Question[]): QuizManager {
+export function createQuizManager(questions: QuestionAnswerMapping[]): QuizManager {
   return {
-    chosenAswers: new Map(
-      quiz.map((q: Question) => [q, undefined])
-    )
+    quiz: questions,
+    chosenAnswers: [],
+    currentQuestion: questions.values()
   };
+};
+
+export function hasNextQuestion(quiz: QuizManager): boolean {
+  return false;
 };

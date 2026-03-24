@@ -4,6 +4,11 @@ export type Answer = {
 
 export type Question = {
   text: string;
+};
+
+export type QuestionAnswerMapping = {
+  question: Question;
   answers: Answer[];
   correctAnswer: Answer;
 };
+
