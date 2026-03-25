@@ -1,9 +1,9 @@
-import type * as Quiz from "./quiz";
+import * as Quiz from "./quiz";
 
 export class QuizManager {
   quiz: Quiz.Quiz;
   state: (typeof QuizManager.states)[keyof typeof QuizManager.states];
-  givenAnswers: Quiz.ID[];
+  givenAnswers: string[];
 
   constructor(quiz: Quiz.Quiz) {
     this.quiz = quiz;
@@ -11,20 +11,17 @@ export class QuizManager {
     this.givenAnswers = [];
   };
 
-  private static states = {
-    INTRODUCTION: "INTRODUCTION",
-    QUESTION: "QUESTION",
-    QUESTION_RESULT: "QUESTION_RESULT",
-    FINAL_RESULT: "FINAL_RESULT",
-  } as const;
-
-  private transition(): void {
+  advance(event: unknown): void {
     switch (this.state) {
       case QuizManager.states.INTRODUCTION:
         this.state = QuizManager.states.QUESTION;
         break;
       case QuizManager.states.QUESTION:
-        this.state = QuizManager.states.QUESTION_RESULT;
+        const [isValid, value] = this.isAnswerIDValid(event);
+        if (isValid) {
+          this.givenAnswers.push(value!);
+          this.state = QuizManager.states.QUESTION_RESULT;
+        };
         break;
       case QuizManager.states.QUESTION_RESULT:
         if (this.givenAnswers.length < this.quiz.questions.length) {
@@ -34,10 +31,30 @@ export class QuizManager {
         };
         break;
       case QuizManager.states.FINAL_RESULT:
-        this.state = QuizManager.states.INTRODUCTION;
         this.givenAnswers.length = 0;
+        this.state = QuizManager.states.INTRODUCTION;
         break;
     };
+  };
+
+  private static states = {
+    INTRODUCTION: "INTRODUCTION",
+    QUESTION: "QUESTION",
+    QUESTION_RESULT: "QUESTION_RESULT",
+    FINAL_RESULT: "FINAL_RESULT",
+  } as const;
+
+  private isAnswerIDValid(event: unknown): [boolean, string?] {
+    const validAnswerIDs = this.quiz.questions[this.givenAnswers.length]!.answers.flatMap(
+      (answer) => { return answer.id; }
+    );
+
+    const answer = (event as Record<string, string>)["answer"];
+    if (answer && answer in validAnswerIDs) {
+      return [true, answer];
+    }
+
+    return [false];
   };
 
 };

@@ -1,16 +1,14 @@
-export type ID = string;
-
 export type Message = {
   text: string;
 };
 
 export type Answer = Message & {
-  id: ID;
+  id: string;
 }
 
 export type Question = Message & {
   answers: Answer[];
-  correctAnswerID: ID;
+  correctAnswerID: string;
 };
 
 export type FinalResultMessage = Message & {
