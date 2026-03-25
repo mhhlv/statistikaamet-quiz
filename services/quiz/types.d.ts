@@ -16,10 +16,23 @@ export type QuestionAnswerMapping = {
   correctAnswerID: ID;
 };
 
+export type Message = {
+  text: string;
+};
+
+export type FinalResultMessage = Message & {
+  requiredPoints: number;
+};
+
 export type Quiz = {
-  text: {
-    introduction: string;
-    conclusion: string;
+  messages: {
+    general: {
+      introduction: Message;
+      result: Message;
+    };
+    personalized: {
+      result: FinalResultMessage[];
+    };
   };
   questions: QuestionAnswerMapping[];
 };
