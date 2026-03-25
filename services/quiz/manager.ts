@@ -37,6 +37,19 @@ export class QuizManager {
     };
   };
 
+  currentPage() {
+    switch (this.state) {
+      case QuizManager.states.INTRODUCTION:
+        break;
+      case QuizManager.states.QUESTION:
+        break;
+      case QuizManager.states.QUESTION_RESULT:
+        break;
+      case QuizManager.states.FINAL_RESULT:
+        break;
+    };
+  };
+
   private static states = {
     INTRODUCTION: "INTRODUCTION",
     QUESTION: "QUESTION",
