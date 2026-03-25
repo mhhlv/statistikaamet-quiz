@@ -1,19 +1,18 @@
-import type { QuestionAnswerMapping, Answer } from "./questions";
+import type * as Quiz from "./quiz";
 
-type QuizManager = {
-  quiz: QuestionAnswerMapping[];
-  chosenAnswers: Answer[];
-  currentQuestion: Iterator<QuestionAnswerMapping>; 
-};
+export class QuizManager {
+  quiz: Quiz.Quiz;
 
-export function createQuizManager(questions: QuestionAnswerMapping[]): QuizManager {
-  return {
-    quiz: questions,
-    chosenAnswers: [],
-    currentQuestion: questions.values()
+
+  constructor(quiz: Quiz.Quiz) {
+    this.quiz = quiz;
   };
-};
 
-export function hasNextQuestion(quiz: QuizManager): boolean {
-  return false;
+  introductionMessage(): string {
+    return this.quiz.text.introduction;
+  };
+
+  conclusionMessage(): string {
+    return this.quiz.text.conclusion;
+  };
 };
