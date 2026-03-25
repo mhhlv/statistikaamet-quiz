@@ -11,6 +11,11 @@ export const stateMachine = setup({
     },
   },
 }).createMachine({
+  initial: "STATE.INTROCUTION",
+  context: ({ input }) => ({
+    currentQuestion: 0,
+    questionCount: input.questionCount,
+  }),
   states: {
     "STATE.INTRODUCTION": {
       on: {
@@ -24,8 +29,14 @@ export const stateMachine = setup({
     },
     "STATE.QUESTION_RESULT": {
       on: {
-        "TRANSITION.TO_NEXT_QUESTION": { target: "STATE.QUESTION" },
-        "TRANSITION.TO_FINAL_RESULT": { target: "STATE.FINAL_RESULT" },
+        "TRANSITION.TO_NEXT_QUESTION": {
+          guard: ({ context }) => { return context.currentQuestion < context.questionCount - 1; }, 
+          target: "STATE.QUESTION",
+        },
+        "TRANSITION.TO_FINAL_RESULT": {
+          guard: ({ context }) => { return context.currentQuestion >= context.questionCount - 1; }, 
+          target: "STATE.FINAL_RESULT",
+        },
       },
     },
     "STATE.FINAL_RESULT": {
@@ -34,9 +45,4 @@ export const stateMachine = setup({
       },
     },
   },
-  initial: "STATE.INTROCUTION",
-  context: ({ input }) => ({
-    currentQuestion: 0,
-    questionCount: input.questionCount,
-  }),
 })
