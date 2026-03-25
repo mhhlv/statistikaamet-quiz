@@ -14,18 +14,18 @@ export const stateMachine = setup({
   states: {
     "STATE.INTRODUCTION": {
       on: {
-        "TRANSITION.FORWARD": { target: "STATE.QUESTION" },
+        "TRANSITION.TO_FIRST_QUESTION": { target: "STATE.QUESTION" },
       },
     },
     "STATE.QUESTION": {
       on: {
-        "TRANSITION.FORWARD": { target: "QUESTION.RESULT" },
+        "TRANSITION.CHOOSE_ANSWER": { target: "QUESTION.RESULT" },
       },
     },
     "STATE.QUESTION_RESULT": {
       on: {
-        "TRANSITION.FORWARD_TO_NEXT_QUESTION": { target: "STATE.QUESTION" },
-        "TRANSITION.FORWARD_TO_RESULT": { target: "STATE.FINAL_RESULT" },
+        "TRANSITION.TO_NEXT_QUESTION": { target: "STATE.QUESTION" },
+        "TRANSITION.TO_FINAL_RESULT": { target: "STATE.FINAL_RESULT" },
       },
     },
     "STATE.FINAL_RESULT": {
