@@ -4,16 +4,12 @@ export const stateMachine = createMachine({
   states: {
     "STATE.INTRODUCTION": {
       on: {
-        "TRANSITION.FORWARD": {
-          target: "STATE.QUESTION",
-        },
+        "TRANSITION.FORWARD": { target: "STATE.QUESTION" },
       },
     },
     "STATE.QUESTION": {
       on: {
-        "TRANSITION.FORWARD": {
-          target: "QUESTION.RESULT",
-        },
+        "TRANSITION.FORWARD": { target: "QUESTION.RESULT" },
       },
     },
     "STATE.QUESTION_RESULT": {
