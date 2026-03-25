@@ -1,4 +1,4 @@
-import { setup } from 'xstate';
+import { assign, setup } from 'xstate';
 
 export const stateMachine = setup({
   types: {
@@ -30,7 +30,8 @@ export const stateMachine = setup({
     "STATE.QUESTION_RESULT": {
       on: {
         "TRANSITION.TO_NEXT_QUESTION": {
-          guard: ({ context }) => { return context.currentQuestion < context.questionCount - 1; }, 
+          guard: ({ context }) => { return context.currentQuestion < context.questionCount - 1; },
+          actions: assign({ currentQuestion: ({ context }) => {return context.currentQuestion + 1; } }),
           target: "STATE.QUESTION",
         },
         "TRANSITION.TO_FINAL_RESULT": {
