@@ -11,7 +11,7 @@ export const stateMachine = setup({
     },
   },
 }).createMachine({
-  initial: "STATE.INTROCUTION",
+  initial: "STATE.INTRODUCTION",
   context: ({ input }) => ({
     currentQuestion: 0,
     questionCount: input.questionCount,
