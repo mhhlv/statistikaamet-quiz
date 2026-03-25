@@ -24,19 +24,13 @@ export const stateMachine = setup({
     },
     "STATE.QUESTION_RESULT": {
       on: {
-        "TRANSITION.FORWARD_TO_NEXT_QUESTION": {
-          target: "STATE.QUESTION",
-        },
-        "TRANSITION.FORWARD_TO_RESULT": {
-          target: "STATE.FINAL_RESULT",
-        },
+        "TRANSITION.FORWARD_TO_NEXT_QUESTION": { target: "STATE.QUESTION" },
+        "TRANSITION.FORWARD_TO_RESULT": { target: "STATE.FINAL_RESULT" },
       },
     },
     "STATE.FINAL_RESULT": {
       on: {
-        "TRANSITION.TRY_AGAIN": {
-          target: "STATE.INTRODUCTION",
-        },
+        "TRANSITION.TRY_AGAIN": { target: "STATE.INTRODUCTION" },
       },
     },
   },
