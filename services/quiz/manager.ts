@@ -1,4 +1,4 @@
-import type * as Quiz from "./types";
+import type * as Quiz from "./quiz";
 
 export class QuizManager {
   quiz: Quiz.Quiz;
