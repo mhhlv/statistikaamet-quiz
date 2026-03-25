@@ -17,7 +17,12 @@ export class QuizManager {
         this.goToNextQuestion();
         break;
       case QuizManager.states.QUESTION:
-        this.submitAnswer(event);
+        const [isValid, value] = this.isAnswerIDValid(event);
+        if (isValid) {
+          this.submitAnswer(value!);
+        } else {
+          this.doNotAdvance();
+        };
         break;
       case QuizManager.states.QUESTION_RESULT:
         if (this.hasNextQuestion()) {
@@ -66,13 +71,12 @@ export class QuizManager {
     this.state = QuizManager.states.QUESTION;
   };
 
-  private submitAnswer(event: unknown): void {
-    const [isValid, value] = this.isAnswerIDValid(event);
-    if (isValid) {
-      this.givenAnswers.push(value!);
-      this.state = QuizManager.states.QUESTION_RESULT;
-    };
+  private submitAnswer(value: string): void {
+    this.givenAnswers.push(value);
+    this.state = QuizManager.states.QUESTION_RESULT;
   };
+
+  private doNotAdvance(): void {};
 
   private goToFinalResult(): void {
     this.state = QuizManager.states.FINAL_RESULT;
