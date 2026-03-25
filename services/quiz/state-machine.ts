@@ -1,6 +1,16 @@
-import { createMachine, assign, createActor } from 'xstate';
+import { setup } from 'xstate';
 
-export const stateMachine = createMachine({
+export const stateMachine = setup({
+  types: {
+    context: {} as {
+      currentQuestion: number,
+      questionCount: number,
+    },
+    input: {} as {
+      questionCount: number,
+    },
+  },
+}).createMachine({
   states: {
     "STATE.INTRODUCTION": {
       on: {
@@ -31,4 +41,8 @@ export const stateMachine = createMachine({
     },
   },
   initial: "STATE.INTROCUTION",
+  context: ({ input }) => ({
+    currentQuestion: 0,
+    questionCount: input.questionCount,
+  }),
 })
