@@ -1,4 +1,4 @@
-import * as Quiz from "./quiz";
+import * as Quiz from "services/quiz/quiz";
 
 export class QuizManager {
   quiz: Quiz.Quiz;
