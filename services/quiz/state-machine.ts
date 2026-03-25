@@ -42,7 +42,10 @@ export const stateMachine = setup({
     },
     "STATE.FINAL_RESULT": {
       on: {
-        "TRANSITION.TRY_AGAIN": { target: "STATE.INTRODUCTION" },
+        "TRANSITION.TRY_AGAIN": {
+          actions: assign({ currentQuestion: 0 }),
+          target: "STATE.INTRODUCTION",
+        },
       },
     },
   },
