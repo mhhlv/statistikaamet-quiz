@@ -2,37 +2,37 @@ import { createMachine, assign, createActor } from 'xstate';
 
 export const stateMachine = createMachine({
   states: {
-    introduction: {
+    "STATE.INTRODUCTION": {
       on: {
-        forward: {
-          target: "question",
+        "TRANSITION.FORWARD": {
+          target: "STATE.QUESTION",
         },
       },
     },
-    question: {
+    "STATE.QUESTION": {
       on: {
-        forward: {
-          target: "questionResult",
+        "TRANSITION.FORWARD": {
+          target: "QUESTION.RESULT",
         },
       },
     },
-    questionResult: {
+    "STATE.QUESTION_RESULT": {
       on: {
-        nextQuestion: {
-          target: "question",
+        "TRANSITION.FORWARD_TO_NEXT_QUESTION": {
+          target: "STATE.QUESTION",
         },
-        seeResults: {
-          target: "finalResult",
+        "TRANSITION.FORWARD_TO_RESULT": {
+          target: "STATE.FINAL_RESULT",
         },
       },
     },
-    finalResult: {
+    "STATE.FINAL_RESULT": {
       on: {
-        tryAgain: {
-          target: "introduction",
+        "TRANSITION.TRY_AGAIN": {
+          target: "STATE.INTRODUCTION",
         },
       },
     },
   },
-  initial: "introduction",
+  initial: "STATE.INTROCUTION",
 })
