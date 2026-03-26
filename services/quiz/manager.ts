@@ -32,7 +32,7 @@ export class QuizManager {
         };
         break;
       case QuizManager.states.FINAL_RESULT:
-        this.resetQuiz();
+        this.doNotAdvance();
         break;
     };
   };
@@ -75,11 +75,6 @@ export class QuizManager {
     return false;
   };
 
-  private resetQuiz(): void {
-    this.givenAnswers.length = 0;
-    this.state = QuizManager.states.INTRODUCTION;
-  };
-
   private goToNextQuestion(): void {
     this.state = QuizManager.states.QUESTION;
   };
@@ -89,10 +84,9 @@ export class QuizManager {
     this.state = QuizManager.states.QUESTION_RESULT;
   };
 
-  private doNotAdvance(): void {};
-
   private goToFinalResult(): void {
     this.state = QuizManager.states.FINAL_RESULT;
   };
 
+  private doNotAdvance(): void { };
 };
