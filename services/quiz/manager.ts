@@ -2,10 +2,10 @@ import * as Format from "services/quiz/format";
 import type * as Response from "services/quiz/response";
 
 export class QuizManager {
-  quiz: Format.Quiz;
-  state: (typeof QuizManager.states)[keyof typeof QuizManager.states];
-  givenAnswers: string[];
-  correctAnswers: boolean[];
+  private quiz: Format.Quiz;
+  private state: (typeof QuizManager.states)[keyof typeof QuizManager.states];
+  private givenAnswers: string[];
+  private correctAnswers: boolean[];
 
   constructor(quiz: Format.Quiz) {
     this.quiz = quiz;
@@ -19,6 +19,7 @@ export class QuizManager {
       case QuizManager.states.INTRODUCTION:
         this.goToNextQuestion();
         break;
+
       case QuizManager.states.QUESTION:
         const [isValid, value] = this.isAnswerIDValid(event);
         if (isValid) {
@@ -27,6 +28,7 @@ export class QuizManager {
           this.doNotAdvance();
         };
         break;
+
       case QuizManager.states.QUESTION_RESULT:
         if (this.hasNextQuestion()) {
           this.goToNextQuestion();
@@ -34,6 +36,7 @@ export class QuizManager {
           this.goToFinalResult();
         };
         break;
+
       case QuizManager.states.FINAL_RESULT:
         this.doNotAdvance();
         break;
@@ -44,10 +47,13 @@ export class QuizManager {
     switch (this.state) {
       case QuizManager.states.INTRODUCTION:
         return this.displayIntroduction();
+
       case QuizManager.states.QUESTION:
         return this.displayCurrentQuestion();
+
       case QuizManager.states.QUESTION_RESULT:
         return this.displayQuestionResult();
+
       case QuizManager.states.FINAL_RESULT:
         return this.displayFinalResult();
     };
@@ -62,12 +68,15 @@ export class QuizManager {
 
   private isAnswerIDValid(event: unknown): [boolean, string?] {
     const answer = (event as Record<string, string>)["answer"];
+
     const validAnswerIDs = this.quiz.questions[this.givenAnswers.length]!.answers.flatMap(
       (answer) => { return answer.id; }
     );
+
     if (answer && answer in validAnswerIDs) {
       return [true, answer];
     }
+
     return [false];
   };
 
@@ -75,6 +84,7 @@ export class QuizManager {
     if (this.givenAnswers.length < this.quiz.questions.length) {
       return true;
     };
+
     return false;
   };
 
@@ -88,6 +98,7 @@ export class QuizManager {
     } else {
       this.correctAnswers.push(false);
     };
+
     this.givenAnswers.push(value);
     this.state = QuizManager.states.QUESTION_RESULT;
   };
@@ -117,6 +128,7 @@ export class QuizManager {
     if (this.correctAnswers.at(-1) === true) {
       text = this.quiz.result.question.get(true)!;
     };
+
     return {
       text: text,
       button: this.quiz.button
@@ -128,6 +140,7 @@ export class QuizManager {
     for (const answer of this.correctAnswers) {
       if (answer === true) { correctAnswerCount++; };
     };
+
     const text = this.quiz.result.final.get(correctAnswerCount)!;
     return {
       text: text
