@@ -5,11 +5,13 @@ export class QuizManager {
   quiz: Quiz.Quiz;
   state: (typeof QuizManager.states)[keyof typeof QuizManager.states];
   givenAnswers: string[];
+  correctAnswers: boolean[];
 
   constructor(quiz: Quiz.Quiz) {
     this.quiz = quiz;
     this.state = QuizManager.states.INTRODUCTION;
     this.givenAnswers = [];
+    this.correctAnswers = [];
   };
 
   advance(event: unknown): void {
@@ -41,10 +43,7 @@ export class QuizManager {
   currentPage(): Response.QuizManagerResponse {
     switch (this.state) {
       case QuizManager.states.INTRODUCTION:
-        return {
-          text: [this.quiz.messages.general.introduction.text],
-          button: this.quiz.messages.general.button.text
-        };
+        return this.displayIntroduction();
       case QuizManager.states.QUESTION:
         return {
           text: [this.quiz.questions[this.givenAnswers.length]!.text],
@@ -92,6 +91,11 @@ export class QuizManager {
   };
 
   private submitAnswer(value: string): void {
+    if (value === this.quiz.questions[this.givenAnswers.length]!.correctAnswerID) {
+      this.correctAnswers.push(true);
+    } else {
+      this.correctAnswers.push(false);
+    };
     this.givenAnswers.push(value);
     this.state = QuizManager.states.QUESTION_RESULT;
   };
@@ -101,4 +105,11 @@ export class QuizManager {
   };
 
   private doNotAdvance(): void { };
+
+  private displayIntroduction(): Response.QuizManagerResponse {
+    return {
+      text: [this.quiz.messages.general.introduction.text],
+      button: this.quiz.messages.general.button.text
+    };
+  };
 };
