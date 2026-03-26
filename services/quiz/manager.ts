@@ -7,6 +7,13 @@ export class QuizManager {
   private givenAnswers: string[];
   private correctAnswers: boolean[];
 
+  private static states = {
+    INTRODUCTION: "INTRODUCTION",
+    QUESTION: "QUESTION",
+    QUESTION_RESULT: "QUESTION_RESULT",
+    FINAL_RESULT: "FINAL_RESULT",
+  } as const;
+
   constructor(quiz: Format.Quiz) {
     this.quiz = quiz;
     this.state = QuizManager.states.INTRODUCTION;
@@ -17,28 +24,16 @@ export class QuizManager {
   advance(event: unknown): void {
     switch (this.state) {
       case QuizManager.states.INTRODUCTION:
-        this.goToNextQuestion();
+        this.handleAdvanceFromIntroduction(event);
         break;
-
       case QuizManager.states.QUESTION:
-        const [isValid, value] = this.isAnswerIDValid(event);
-        if (isValid) {
-          this.submitAnswer(value!);
-        } else {
-          this.doNotAdvance();
-        };
+        this.handleAdvanceFromQuestion(event);
         break;
-
       case QuizManager.states.QUESTION_RESULT:
-        if (this.hasNextQuestion()) {
-          this.goToNextQuestion();
-        } else {
-          this.goToFinalResult();
-        };
+        this.handleAdvanceFromQuestionResult(event);
         break;
-
       case QuizManager.states.FINAL_RESULT:
-        this.doNotAdvance();
+        this.handleAdvanceFromFinalResult(event);
         break;
     };
   };
@@ -47,24 +42,42 @@ export class QuizManager {
     switch (this.state) {
       case QuizManager.states.INTRODUCTION:
         return this.displayIntroduction();
-
       case QuizManager.states.QUESTION:
         return this.displayCurrentQuestion();
-
       case QuizManager.states.QUESTION_RESULT:
         return this.displayQuestionResult();
-
       case QuizManager.states.FINAL_RESULT:
         return this.displayFinalResult();
     };
   };
 
-  private static states = {
-    INTRODUCTION: "INTRODUCTION",
-    QUESTION: "QUESTION",
-    QUESTION_RESULT: "QUESTION_RESULT",
-    FINAL_RESULT: "FINAL_RESULT",
-  } as const;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private handleAdvanceFromIntroduction(_event: unknown): void {
+    if (this.hasNextQuestion()) {
+      this.state = QuizManager.states.QUESTION;
+    } else {
+      this.state = QuizManager.states.FINAL_RESULT;
+    };
+  };
+
+  private handleAdvanceFromQuestion(event: unknown): void {
+    const [isValid, value] = this.isAnswerIDValid(event);
+    if (isValid) {
+      this.submitAnswer(value!);
+    };
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private handleAdvanceFromQuestionResult(_event: unknown): void {
+    if (this.hasNextQuestion()) {
+      this.state = QuizManager.states.QUESTION;
+    } else {
+      this.state = QuizManager.states.FINAL_RESULT;
+    };
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private handleAdvanceFromFinalResult(_event: unknown): void {};
 
   private isAnswerIDValid(event: unknown): [boolean, string?] {
     const answer = (event as Record<string, string>)["answer"];
@@ -88,10 +101,6 @@ export class QuizManager {
     return false;
   };
 
-  private goToNextQuestion(): void {
-    this.state = QuizManager.states.QUESTION;
-  };
-
   private submitAnswer(value: string): void {
     if (value === this.quiz.questions[this.givenAnswers.length]!.correctAnswerID) {
       this.correctAnswers.push(true);
@@ -102,12 +111,6 @@ export class QuizManager {
     this.givenAnswers.push(value);
     this.state = QuizManager.states.QUESTION_RESULT;
   };
-
-  private goToFinalResult(): void {
-    this.state = QuizManager.states.FINAL_RESULT;
-  };
-
-  private doNotAdvance(): void { };
 
   private displayIntroduction(): Response.QuizManagerResponse {
     return {
