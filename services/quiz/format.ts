@@ -15,6 +15,7 @@ export type QuestionResult = Map<boolean, Message[]>;
 export type FinalResult = Map<number, Message[]>;
 
 export type Quiz = {
+  title: Message;
   introduction: Message[];
   questions: Question[];
   button: Message;

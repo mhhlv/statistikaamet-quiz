@@ -8,6 +8,10 @@ export default defineConfig([
   eslintTS.configs.recommended,
   { 
     ...eslintPluginReact.configs.flat['recommended'],
+    rules: {
+      "react/react-in-jsx-scope": "off",
+      "react/jsx-uses-react": "off"
+    },
     files: ["**/*.{jsx,tsx}"],
     settings: { react: { version: "detect" } },
   },

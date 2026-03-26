@@ -21,6 +21,10 @@ export class QuizManager {
     this.correctAnswers = [];
   };
 
+  title(): string {
+    return this.quiz.title.text;
+  };
+
   advance(event: unknown): void {
     switch (this.state) {
       case QuizManager.states.INTRODUCTION:
