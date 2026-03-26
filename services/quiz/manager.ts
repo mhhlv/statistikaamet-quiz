@@ -1,4 +1,5 @@
-import * as Quiz from "services/quiz/quiz";
+import * as Quiz from "services/quiz/format";
+import type * as Response from "services/quiz/response";
 
 export class QuizManager {
   quiz: Quiz.Quiz;
@@ -37,16 +38,27 @@ export class QuizManager {
     };
   };
 
-  currentPage() {
+  currentPage(): Response.QuizManagerResponse {
     switch (this.state) {
       case QuizManager.states.INTRODUCTION:
-        break;
+        return {
+          text: [this.quiz.messages.general.introduction.text],
+          button: this.quiz.messages.general.button.text
+        };
       case QuizManager.states.QUESTION:
-        break;
+        return {
+          text: [this.quiz.questions[this.givenAnswers.length]!.text],
+          answers: []
+        };
       case QuizManager.states.QUESTION_RESULT:
-        break;
+        return {
+          text: [],
+          button: this.quiz.messages.general.button.text
+        };
       case QuizManager.states.FINAL_RESULT:
-        break;
+        return {
+          text: [],
+        };
     };
   };
 

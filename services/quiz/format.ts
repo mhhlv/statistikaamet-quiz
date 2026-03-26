@@ -20,6 +20,7 @@ export type Quiz = {
     general: {
       introduction: Message;
       result: Message;
+      button: Message;
     };
     personalized: {
       result: FinalResultMessage[];
