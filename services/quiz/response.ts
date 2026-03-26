@@ -1,5 +1,7 @@
+import * as Format from "services/quiz/format";
+
 export type QuizManagerResponse = {
-  text: string[];
-  answers?: string[];
-  button?: string;
+  text: Format.Message[];
+  answers?: Format.Answer[];
+  button?: Format.Message;
 };

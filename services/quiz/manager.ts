@@ -1,13 +1,13 @@
-import * as Quiz from "services/quiz/format";
+import * as Format from "services/quiz/format";
 import type * as Response from "services/quiz/response";
 
 export class QuizManager {
-  quiz: Quiz.Quiz;
+  quiz: Format.Quiz;
   state: (typeof QuizManager.states)[keyof typeof QuizManager.states];
   givenAnswers: string[];
   correctAnswers: boolean[];
 
-  constructor(quiz: Quiz.Quiz) {
+  constructor(quiz: Format.Quiz) {
     this.quiz = quiz;
     this.state = QuizManager.states.INTRODUCTION;
     this.givenAnswers = [];
@@ -45,19 +45,11 @@ export class QuizManager {
       case QuizManager.states.INTRODUCTION:
         return this.displayIntroduction();
       case QuizManager.states.QUESTION:
-        return {
-          text: [this.quiz.questions[this.givenAnswers.length]!.text],
-          answers: []
-        };
+        return this.displayCurrentQuestion();
       case QuizManager.states.QUESTION_RESULT:
-        return {
-          text: [],
-          button: this.quiz.messages.general.button.text
-        };
+        return this.displayQuestionResult();
       case QuizManager.states.FINAL_RESULT:
-        return {
-          text: [],
-        };
+        return this.displayFinalResult();
     };
   };
 
@@ -108,8 +100,37 @@ export class QuizManager {
 
   private displayIntroduction(): Response.QuizManagerResponse {
     return {
-      text: [this.quiz.messages.general.introduction.text],
-      button: this.quiz.messages.general.button.text
+      text: this.quiz.introduction,
+      button: this.quiz.button
+    };
+  };
+
+  private displayCurrentQuestion(): Response.QuizManagerResponse {
+    return {
+      text: [this.quiz.questions[this.givenAnswers.length] as Format.Message],
+      answers: this.quiz.questions[this.givenAnswers.length]!.answers
+    };
+  };
+
+  private displayQuestionResult(): Response.QuizManagerResponse {
+    let text = this.quiz.result.question.get(false)!;
+    if (this.correctAnswers.at(-1) === true) {
+      text = this.quiz.result.question.get(true)!;
+    };
+    return {
+      text: text,
+      button: this.quiz.button
+    };
+  };
+
+  private displayFinalResult(): Response.QuizManagerResponse {
+    let correctAnswerCount = 0;
+    for (const answer of this.correctAnswers) {
+      if (answer === true) { correctAnswerCount++; };
+    };
+    const text = this.quiz.result.final.get(correctAnswerCount)!;
+    return {
+      text: text
     };
   };
 };

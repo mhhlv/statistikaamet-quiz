@@ -11,20 +11,15 @@ export type Question = Message & {
   correctAnswerID: string;
 };
 
-export type FinalResultMessage = Message & {
-  requiredPoints: number;
-};
+export type QuestionResult = Map<boolean, Message[]>;
+export type FinalResult = Map<number, Message[]>;
 
 export type Quiz = {
-  messages: {
-    general: {
-      introduction: Message;
-      result: Message;
-      button: Message;
-    };
-    personalized: {
-      result: FinalResultMessage[];
-    };
-  };
+  introduction: Message[];
   questions: Question[];
+  button: Message;
+  result: {
+    question: QuestionResult;
+    final: FinalResult;
+  };
 };
