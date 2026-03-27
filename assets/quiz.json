@@ -3,41 +3,88 @@
     "text": "Statistikaameti viktoriin"
   },
   "introduction": {
-    "text": ""
+    "text": "Kui häasti sa tunned Eestimaad? Pane end proovile ja saa teada!"
   },
   "questions": [
     {
-      "text": "",
+      "text": "Mis on Eesti rahvaarv 2026. aasta alguse seisuga?",
       "answers": [
         {
-          "text": "",
-          "id": ""
+          "text": "1 257 980 inimest",
+          "id": "1"
+        },
+        {
+          "text": "1 362 954 inimest",
+          "id": "2"
+        },
+        {
+          "text": "1 403 518 inimest",
+          "id": "3"
         }
       ],
-      "correctAnswerID": ""
+      "correctAnswerID": "2"
+    },
+    {
+      "text": "2025. aastal on keskmine brutopalk tõusnud arvuni 2092 eurot kuus. Mitme euro võrra on see suurem, kui oli aastal 2021?",
+      "answers": [
+        {
+          "text": "297 euro võrra",
+          "id": "1"
+        },
+        {
+          "text": "473 euro võrra",
+          "id": "2"
+        },
+        {
+          "text": "618 euro võrra",
+          "id": "3"
+        }
+      ],
+      "correctAnswerID": "3"
+    },
+    {
+      "text": "Viimase rahvastiku loenduse tulemusena selgus, et protsentides väljendatud oli vanurite, ehk 65+ vanuserühmas inimeste, arv kõrgeim just selles maakonnas, kus see ületas 26.2%. Mis maakonnaga on tegemist?",
+      "answers": [
+        {
+          "text": "Ida-Virumaa",
+          "id": "1"
+        },
+        {
+          "text": "Hiiumaa",
+          "id": "2"
+        },
+        {
+          "text": "Valgamaa",
+          "id": "3"
+        }
+      ],
+      "correctAnswerID": "1"
     }
   ],
   "button": {
-    "text": ""
+    "text": "Edasi"
   },
   "result": {
     "question": {
       "true": {
-        "text": ""
+        "text": "Tubli töö. Oled andnud õige vastuse."
       },
       "false": {
-        "text": ""
+        "text": "Oi, tundub et see oli vale vastus. Kuid pole vaja häbeneda, jätka vastamast."
       }
     },
     "final": {
       "0": {
-        "text": ""
+        "text": "Sa ei ole andnud ühtegi õiget vastust. Pead veel palju vaeva nägema, et ennast Eesti statistikaga kurssi viima."
       },
       "1": {
-        "text": ""
+        "text": "Sa oled andnud üks õige vastus kolmest. Sul on olemas alusteadmised Eesti statistikast, kuid sinu kasvupotentsiaal on veel suur."
       },
       "2": {
-        "text": ""
+        "text": "Sa oled õigesti vastanud kahele küsimusele kolmest. Sa tunned Eesti statistikat päris hästi, aga mõned väikesed aspektid ikka võivad sind tardumusse langetada."
+      },
+      "3": {
+        "text": "Sa oled vastanud igale küsimusele õigesti. Sinu teadmised Eesti statistikast on täiesti suurepärased."
       }
     }
   }

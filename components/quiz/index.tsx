@@ -5,11 +5,12 @@ import { type Quiz } from "services/quiz/format";
 import { QuizManager } from "services/quiz/manager";
 
 export default function Quiz({ data }: { data: Quiz }) {
-  const manager = new QuizManager(data);
+  const [manager, refreshManager] = useState(new QuizManager(data));
   const [page, setPage] = useState(manager.currentPage());
 
   function handleUserAction(event: unknown) {
     manager.advance(event);
+    refreshManager(manager);
     setPage(manager.currentPage());
   };
 
@@ -25,7 +26,7 @@ export default function Quiz({ data }: { data: Quiz }) {
         page.answers?.map(
           (answer) => {
             return (
-              <button id={ answer.id } onClick={() => handleUserAction({ answer: answer.id }) }>
+              <button onClick={() => handleUserAction({ answer: answer.id }) }>
                 { answer.text }
               </button>
             )

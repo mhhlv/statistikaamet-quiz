@@ -86,7 +86,7 @@ export class QuizManager {
       (answer) => { return answer.id; }
     );
 
-    if (answer && answer in validAnswerIDs) {
+    if (answer && validAnswerIDs.includes(answer)) {
       return [true, answer];
     }
 
