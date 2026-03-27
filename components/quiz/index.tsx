@@ -17,21 +17,37 @@ export default function Quiz({ data }: { data: Quiz }) {
   return (
     <section>
       <h1>{ page.title.text }</h1>
+      <p>{page.paragraph.text}</p>
       {
-        page.text.map(
-          (paragraph) => { return <p>{ paragraph.text }</p>; } 
+        page.answers?.map(
+          answer => (
+            <button onClick={() => handleUserAction({ answer: answer.id }) }>
+              { answer.text }
+            </button>
+          )
         )
       }
       {
-        page.answers?.map(
-          (answer) => {
-            return (
-              <button onClick={() => handleUserAction({ answer: answer.id }) }>
-                { answer.text }
-              </button>
-            )
-          }
-        )
+        page.table
+          ? <table>
+              <tr>
+                <th>{ page.table.headers.questions.text }</th>
+                <th>{ page.table.headers.correctAnswers.text }</th>
+                <th>{ page.table.headers.givenAnswers.text }</th>
+              </tr>
+              {
+                page.table.rows.map(
+                  row => (
+                    <tr>
+                      <th>{row.questions.text}</th>
+                      <th>{row.correctAnswers.text}</th>
+                      <th>{row.givenAnswers.text}</th>
+                    </tr>
+                  )
+                )
+              }
+            </table>
+          : null
       }
       {
         page.button

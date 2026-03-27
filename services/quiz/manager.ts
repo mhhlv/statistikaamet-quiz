@@ -115,7 +115,7 @@ export class QuizManager {
   private displayIntroduction(): Response.QuizManagerResponse {
     return {
       title: this.quiz.title,
-      text: [this.quiz.introduction],
+      paragraph: this.quiz.introduction,
       button: this.quiz.button
     };
   };
@@ -123,7 +123,7 @@ export class QuizManager {
   private displayCurrentQuestion(): Response.QuizManagerResponse {
     return {
       title: this.quiz.title,
-      text: [this.quiz.questions[this.givenAnswers.length] as Format.Message],
+      paragraph: this.quiz.questions[this.givenAnswers.length] as Format.Message,
       answers: this.quiz.questions[this.givenAnswers.length]!.answers
     };
   };
@@ -136,7 +136,7 @@ export class QuizManager {
 
     return {
       title: this.quiz.title,
-      text: [text ? text : { text: "ERROR" }],
+      paragraph: text ? text : { text: "ERROR" },
       button: this.quiz.button
     };
   };
@@ -148,9 +148,29 @@ export class QuizManager {
     };
 
     const text = this.quiz.result.final[correctAnswerCount.toString()];
+
+    const table = {
+      headers: {
+        questions: this.quiz.table.questions,
+        correctAnswers: this.quiz.table.correctAnswers,
+        givenAnswers: this.quiz.table.givenAnswers
+      },
+      rows: this.quiz.questions.map((q, i) => {
+        const correctAnswer = q.answers.find(a => a.id === q.correctAnswerID);
+        const givenAnswer = q.answers.find(a => a.id === this.givenAnswers[i]);
+
+        return {
+          questions: { text: q.text },
+          correctAnswers: { text: correctAnswer ? correctAnswer.text : '' },
+          givenAnswers: { text: givenAnswer ? givenAnswer.text : '' }
+        };
+      })
+    };
+
     return {
       title: this.quiz.title,
-      text: [text ? text : { text: "ERROR" }]
+      paragraph: text ? text : { text: "ERROR" },
+      table: table
     };
   };
 };

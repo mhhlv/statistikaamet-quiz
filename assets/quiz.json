@@ -64,6 +64,17 @@
   "button": {
     "text": "Edasi"
   },
+  "table": {
+    "questions": {
+      "text": "Küsimus:"
+    },
+    "correctAnswers": {
+      "text": "Õige vastus:"
+    },
+    "givenAnswers": {
+      "text": "Sinu vastus:"
+    }
+  },
   "result": {
     "question": {
       "true": {

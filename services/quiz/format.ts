@@ -18,6 +18,11 @@ export type Quiz = {
   introduction: Message;
   questions: Question[];
   button: Message;
+  table: {
+    questions: Message;
+    correctAnswers: Message;
+    givenAnswers: Message;
+  };
   result: {
     question: Result;
     final: Result;
