@@ -7,13 +7,12 @@ import { type Quiz } from "@/services/quiz/format";
 import { QuizManager } from "@/services/quiz/manager";
 
 export default function Quiz({ data }: { data: Quiz }) {
-  const [manager, refreshManager] = useState(new QuizManager(data));
-  const [page, setPage] = useState(manager.currentPage());
+  const [[manager, tick], setTick] = useState([new QuizManager(data), 0]);
+  const page = manager.currentPage();
 
-  function handleUserAction(event: unknown) {
-    manager.advance(event);
-    refreshManager(manager);
-    setPage(manager.currentPage());
+  const handleUserAction = (payload: object = {}) => {
+    manager.advance(payload);
+    setTick([manager, tick + 1]);
   };
 
   return (
