@@ -4,6 +4,9 @@
     "@tsconfig/vite-react/tsconfig.json"
   ],
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["*"]
+    }
   }
 }

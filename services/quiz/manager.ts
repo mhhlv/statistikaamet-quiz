@@ -1,5 +1,5 @@
-import * as Format from "services/quiz/format";
-import type * as Response from "services/quiz/response";
+import * as Format from "@/services/quiz/format";
+import type * as Response from "@/services/quiz/response";
 
 export class QuizManager {
   private quiz: Format.Quiz;

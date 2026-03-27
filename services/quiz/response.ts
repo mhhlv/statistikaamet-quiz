@@ -1,4 +1,4 @@
-import * as Format from "services/quiz/format";
+import * as Format from "@/services/quiz/format";
 
 export type QuizManagerResponse = {
   title: Format.Message;
