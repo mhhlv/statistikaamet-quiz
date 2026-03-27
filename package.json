@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": ""
+    "build": "npx vite build",
+    "serve": "npx vite serve",
+    "test": "npx playwright test"
   },
   "author": "Mihhail Mihhailov",
   "license": "MIT",
