@@ -3,6 +3,9 @@
 # Node modules
 node_modules/
 
+# Build results
+dist/
+
 ### Windows
 ### https://github.com/github/gitignore/blob/main/Global/Windows.gitignore
 
