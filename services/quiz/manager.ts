@@ -115,7 +115,7 @@ export class QuizManager {
   private displayIntroduction(): Response.QuizManagerResponse {
     return {
       title: this.quiz.title,
-      text: this.quiz.introduction,
+      text: [this.quiz.introduction],
       button: this.quiz.button
     };
   };
@@ -129,14 +129,14 @@ export class QuizManager {
   };
 
   private displayQuestionResult(): Response.QuizManagerResponse {
-    let text = this.quiz.result.question.get(false)!;
+    let text = this.quiz.result.question["false"];
     if (this.correctAnswers.at(-1) === true) {
-      text = this.quiz.result.question.get(true)!;
+      text = this.quiz.result.question["true"];
     };
 
     return {
       title: this.quiz.title,
-      text: text,
+      text: [text ? text : { text: "ERROR" }],
       button: this.quiz.button
     };
   };
@@ -147,10 +147,10 @@ export class QuizManager {
       if (answer === true) { correctAnswerCount++; };
     };
 
-    const text = this.quiz.result.final.get(correctAnswerCount)!;
+    const text = this.quiz.result.final[correctAnswerCount.toString()];
     return {
       title: this.quiz.title,
-      text: text
+      text: [text ? text : { text: "ERROR" }]
     };
   };
 };

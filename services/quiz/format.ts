@@ -11,16 +11,15 @@ export type Question = Message & {
   correctAnswerID: string;
 };
 
-export type QuestionResult = Map<boolean, Message[]>;
-export type FinalResult = Map<number, Message[]>;
+export type Result = Record<string, Message>;
 
 export type Quiz = {
   title: Message;
-  introduction: Message[];
+  introduction: Message;
   questions: Question[];
   button: Message;
   result: {
-    question: QuestionResult;
-    final: FinalResult;
+    question: Result;
+    final: Result;
   };
 };

@@ -1,0 +1,44 @@
+{
+  "title": {
+    "text": "Statistikaameti viktoriin"
+  },
+  "introduction": {
+    "text": ""
+  },
+  "questions": [
+    {
+      "text": "",
+      "answers": [
+        {
+          "text": "",
+          "id": ""
+        }
+      ],
+      "correctAnswerID": ""
+    }
+  ],
+  "button": {
+    "text": ""
+  },
+  "result": {
+    "question": {
+      "true": {
+        "text": ""
+      },
+      "false": {
+        "text": ""
+      }
+    },
+    "final": {
+      "0": {
+        "text": ""
+      },
+      "1": {
+        "text": ""
+      },
+      "2": {
+        "text": ""
+      }
+    }
+  }
+}

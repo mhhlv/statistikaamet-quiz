@@ -4,12 +4,8 @@ import { useState } from "react";
 import { type Quiz } from "services/quiz/format";
 import { QuizManager } from "services/quiz/manager";
 
-export type Props = {
-  quiz: Quiz;
-};
-
-export default function Quiz(props: Props) {
-  const manager = new QuizManager(props.quiz);
+export default function Quiz({ data }: { data: Quiz }) {
+  const manager = new QuizManager(data);
   const [page, setPage] = useState(manager.currentPage());
 
   function handleUserAction(event: unknown) {
