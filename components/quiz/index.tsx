@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Heading, Text, Button, Table, Section, Grid, Container, Flex, Card } from "@radix-ui/themes";
-
 import { type Quiz } from "@/services/quiz/format";
 import { QuizManager } from "@/services/quiz/manager";
 
