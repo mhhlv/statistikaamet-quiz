@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { type Quiz } from "services/quiz/format";
-import { QuizManager } from "services/quiz/manager";
+import { Heading, Text, Button } from "@radix-ui/themes";
+
+import { type Quiz } from "@/services/quiz/format";
+import { QuizManager } from "@/services/quiz/manager";
 
 export default function Quiz({ data }: { data: Quiz }) {
   const [manager, refreshManager] = useState(new QuizManager(data));
@@ -16,14 +18,14 @@ export default function Quiz({ data }: { data: Quiz }) {
 
   return (
     <section>
-      <h1>{ page.title.text }</h1>
-      <p>{page.paragraph.text}</p>
+      <Heading>{ page.title.text }</Heading>
+      <Text>{page.paragraph.text}</Text>
       {
         page.answers?.map(
           answer => (
-            <button onClick={() => handleUserAction({ answer: answer.id }) }>
+            <Button onClick={() => handleUserAction({ answer: answer.id }) }>
               { answer.text }
-            </button>
+            </Button>
           )
         )
       }
@@ -51,9 +53,9 @@ export default function Quiz({ data }: { data: Quiz }) {
       }
       {
         page.button
-          ? <button onClick={ () => handleUserAction({}) }>
+          ? <Button onClick={ () => handleUserAction({}) }>
               { page.button?.text }
-            </button>
+            </Button>
           : null
       }
     </section>
