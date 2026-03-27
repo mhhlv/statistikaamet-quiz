@@ -29,7 +29,7 @@ export default function Quiz(props: Props) {
         page.answers?.map(
           (answer) => {
             return (
-              <button id={ answer.id } onClick={ handleUserAction({ answer: answer.id }) }>
+              <button id={ answer.id } onClick={() => handleUserAction({ answer: answer.id }) }>
                 { answer.text }
               </button>
             )
@@ -38,7 +38,7 @@ export default function Quiz(props: Props) {
       }
       {
         page.button
-          ? <button onClick={ handleUserAction({}) }>
+          ? <button onClick={ () => handleUserAction({}) }>
               { page.button?.text }
             </button>
           : null
