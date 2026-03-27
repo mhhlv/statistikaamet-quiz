@@ -1,28 +1,46 @@
 "use client";
 
+import { useState } from "react";
+import { type Quiz } from "services/quiz/format";
 import { QuizManager } from "services/quiz/manager";
 
 export type Props = {
-  manager: QuizManager;
+  quiz: Quiz;
 };
 
 export default function Quiz(props: Props) {
+  const manager = new QuizManager(props.quiz);
+  const [page, setPage] = useState(manager.currentPage());
+
+  function handleUserAction(event: unknown) {
+    manager.advance(event);
+    setPage(manager.currentPage());
+  };
+
   return (
     <section>
-      <h1>{ props.manager.title() }</h1>
+      <h1>{ page.title.text }</h1>
       {
-        props.manager.currentPage().text.map(
+        page.text.map(
           (paragraph) => { return <p>{ paragraph.text }</p>; } 
         )
       }
       {
-        props.manager.currentPage().answers?.map(
-          (answer) => { return <button id={ answer.id }>{ answer.text }</button> }
+        page.answers?.map(
+          (answer) => {
+            return (
+              <button id={ answer.id } onClick={ handleUserAction({ answer: answer.id }) }>
+                { answer.text }
+              </button>
+            )
+          }
         )
       }
       {
-        props.manager.currentPage().button
-          ? <button>{ props.manager.currentPage().button?.text }</button>
+        page.button
+          ? <button onClick={ handleUserAction({}) }>
+              { page.button?.text }
+            </button>
           : null
       }
     </section>

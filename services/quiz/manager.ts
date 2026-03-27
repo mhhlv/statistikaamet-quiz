@@ -21,10 +21,6 @@ export class QuizManager {
     this.correctAnswers = [];
   };
 
-  title(): string {
-    return this.quiz.title.text;
-  };
-
   advance(event: unknown): void {
     switch (this.state) {
       case QuizManager.states.INTRODUCTION:
@@ -118,6 +114,7 @@ export class QuizManager {
 
   private displayIntroduction(): Response.QuizManagerResponse {
     return {
+      title: this.quiz.title,
       text: this.quiz.introduction,
       button: this.quiz.button
     };
@@ -125,6 +122,7 @@ export class QuizManager {
 
   private displayCurrentQuestion(): Response.QuizManagerResponse {
     return {
+      title: this.quiz.title,
       text: [this.quiz.questions[this.givenAnswers.length] as Format.Message],
       answers: this.quiz.questions[this.givenAnswers.length]!.answers
     };
@@ -137,6 +135,7 @@ export class QuizManager {
     };
 
     return {
+      title: this.quiz.title,
       text: text,
       button: this.quiz.button
     };
@@ -150,6 +149,7 @@ export class QuizManager {
 
     const text = this.quiz.result.final.get(correctAnswerCount)!;
     return {
+      title: this.quiz.title,
       text: text
     };
   };
